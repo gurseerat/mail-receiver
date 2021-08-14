@@ -1,0 +1,41 @@
+.no-data-container {
+  display: grid;
+  align-content: center;
+  text-align: center;
+  .heading {
+    font-size: 20px;
+    font-weight: 500;
+    padding: 15px 0px 3px;
+  }
+  .sub-heading {
+    font-size: 16px;
+    line-height: 16px;
+  }
+}
+
+.no-email-image {
+  width: 120px;
+  height: 120px;
+  margin: auto;
+}
+
+.mail-metadata {
+  padding: 10px;
+  .from-meta, .to-meta {
+    font-size: 13px;
+  }
+  
+  .subject-meta {
+    font-size: 22px;
+  }
+
+  .date-meta {
+    font-size: 12px;
+    color: #787a80;
+  }
+}
+
+.mail-viewer {
+  padding: 0 10px;
+  overflow-x: auto;
+}

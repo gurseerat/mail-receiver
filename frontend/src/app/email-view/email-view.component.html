@@ -1,0 +1,23 @@
+<div class="email-viewer-container h-100">
+  <div *ngIf="!mailSelected" class="center-aligned-container h-100">
+    <div class="no-data-container h-100">
+      <img src="https://outlook-1.cdn.office.net/owamail/2021072701.02/scripts/../resources/images/illustration_mail-ba59df675486de5cd7383ae665b0102c.svg" alt="" class="no-email-image">
+      <div class="heading">
+        Select an email to display
+      </div>
+      <div class="sub-heading">
+        Nothing to display
+      </div>
+    </div>
+  </div>
+  <div *ngIf="mailSelected" style="padding-bottom: 50px">
+    <div class="mail-metadata">
+      <div class="subject-meta">{{ mailSelected?.subject }}</div>
+      <div class="from-meta">From: {{ (mailSelected?.from?.text) }}</div>
+      <div class="to-meta">To: {{ (mailSelected?.to?.value && mailSelected?.to?.value[0]?.name) }} <{{ (mailSelected?.to?.value && mailSelected?.to?.value[0]?.address) }}></div>
+      <div class="date-meta"> {{ mailSelected?.date | date: 'medium'}}</div>
+
+    </div>
+    <div class="mail-viewer" [innerHtml]="mailHtml"></div>
+  </div>
+</div>

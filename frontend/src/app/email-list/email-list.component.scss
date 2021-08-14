@@ -1,0 +1,108 @@
+.header {
+  background: #2980B9;
+  color: #fff;
+  font-size: 22px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0px;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.subject-content {
+  font-size: 18px;
+  color: #1865a9;
+}
+
+.from-content {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.mail-list {
+  padding-left: 10px;
+  padding-bottom: 50px;
+}
+
+.mail-item {
+  padding: 5px;
+  border-bottom: 1px solid #dee2e6 !important;
+  width: 100%;
+  cursor: pointer;
+}
+
+.date-content {
+  font-size: 14px;
+  color: #787a80;
+}
+
+.toggle-icon {
+  cursor: pointer;
+  color: #403d3d;
+  background: #fff;
+  padding: 5px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.sidebar {
+  width: 400px;
+  height: 100%;
+  transition: 0.7s ease;
+  overflow-wrap: break-word;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  top: 50px;
+  overflow-y: scroll;
+  &.isMobile {
+    background: #eee;
+    z-index: 10;
+    width: 300px;
+    min-width: 300px;
+  }
+  &.hide {
+    left: -400px;
+    overflow: hidden;
+  }
+}
+
+.main-content {
+  width: calc(100% - 400px);
+  left: 400px;
+  position: relative;
+  overflow: auto;
+  transition: 0.7s ease;
+  top: 50px;
+  &.toggled {
+    width: 100%;
+    left: 0;
+  }
+  &.isMobile {
+    width: 100%;
+    left: 0px;
+    position: absolute;
+  }
+}
+
+.previous-icon, .next-icon {
+  background: transparent;
+  color: #fff;
+  border: none;
+  &:disabled {
+    color: #d0b7b7;
+    cursor: not-allowed;
+  }
+}
+
+.pagination {
+  font-size: 14px;
+}
+
+.left-items {
+  align-items: center;
+  display: flex;
+}

@@ -1,0 +1,63 @@
+<div class="emails-container h-100">
+  <div class="header px-3">
+    <div class="toggle-sidebar" (click)="toggleSideBar()" [class.active]="toggleSideBarActive">
+      <div class="toggle-icon" [class.active]="toggleSideBarActive">&#9776;</div>
+    </div>
+    Inbox
+    <div class="ml-auto left-items">
+      <div class="pagination">
+        <span class="page-content" [ngClass]="isMobile ? 'mr-1' : 'mr-3'">{{ start || 0 }} - {{ createEndTemplate() }} of {{ mailData?.totalCount || 0 }}</span>
+        <button class="previous-icon" [ngClass]="isMobile ? 'mr-1' : 'mr-4'" (click)="drawHandler(mailConn?.draw - 1)" [disabled]="(start === 1)">&#10094;</button> 
+        <button class="next-icon" [ngClass]="isMobile ? 'mr-1' : 'mr-4'" (click)="drawHandler(mailConn?.draw + 1)" [disabled]="createEndTemplate() === mailData?.totalCount">&#10095;</button>
+      </div>
+      
+      <button class="btn btn-light" type="button" (click)="editConnectionHandler()">Edit Connection</button>
+    </div>
+  </div>
+
+  <div class="d-flex h-100">
+    <div class="sidebar border-right" [class.hide]="!toggleSideBarActive" [class.isMobile]="isMobile">
+      <div class="mail-list">
+        <div class="mail-item" *ngFor="let mail of mailData?.messages" (click)="mailSelectedHandler(mail)">
+          <div class="from-content">{{ (mail?.from?.value && mail?.from?.value[0]?.name) }}</div>
+          <div class="subject-content">{{ mail?.subject }}</div>
+          <div class="date-content"> {{ mail?.date | date: 'medium'}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="main-content h-100" [class.toggled]="!toggleSideBarActive" [class.isMobile]="isMobile">
+      <app-email-view [mailSelected]="mailSelected"></app-email-view>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- <mat-toolbar>
+  <div class="toggle-sidebar" (click)="toggleSideBar()" [class.active]="toggleSideBarActive">
+    <div class="toggle-icon" [class.active]="toggleSideBarActive">&#9776;</div>
+  </div>
+  Inbox
+  <div class="ml-auto">
+    <button class="btn btn-light" type="button">Edit Connection</button>
+  </div>
+</mat-toolbar>
+  
+  <mat-sidenav-container>
+      <mat-sidenav class="mat-elevation-z8">
+        <div class="mail-list">
+          <div class="mail-item" *ngFor="let mail of mailData?.messages" (click)="mailSelectedHandler(mail)">
+            <div class="from-content">{{ (mail?.from?.value && mail?.from?.value[0]?.name) }}</div>
+            <div class="subject-content">{{ mail?.subject }}</div>
+            <div class="date-content"> {{ mail?.date | date: 'medium'}}</div>
+          </div>
+        </div>
+      </mat-sidenav>
+      <mat-sidenav-content>
+          <div class="content mat-elevation-z8">
+            <app-email-view [mailSelected]="mailSelected"></app-email-view>
+          </div>
+      </mat-sidenav-content>
+  </mat-sidenav-container> -->

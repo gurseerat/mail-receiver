@@ -1,0 +1,72 @@
+<div class="connection-form-wrapper h-100">
+  <div class="row">
+    <div class="col-12">
+      <form [formGroup]="form" novalidate>
+        <div class="row">
+          <div class="form-group col-md-6 col-lg-6 col-sm-6">
+            <label>Server Type</label>
+            <select class="form-control form-control-md" formControlName="serverType"
+              [ngClass]="{ 'is-invalid': submitted && f.serverType.errors }">
+              <option [ngValue]="null">Select Server Type</option>
+              <option *ngFor="let item of serverTypes" [value]="item.value">{{ item.type }}</option>
+            </select>
+            <div *ngIf="submitted && f.serverType.errors" class="invalid-feedback">
+              <div *ngIf="f.serverType.errors.required">Server Type is required</div>
+            </div>
+          </div>
+          
+          <div class="form-group col-md-6 col-lg-6 col-sm-6">
+            <label>Server</label>
+            <input type="text" formControlName="server" placeholder="Server" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.server.errors }"/>
+            <div *ngIf="submitted && f.server.errors" class="invalid-feedback">
+              <div *ngIf="f.server.errors.required">Server is required</div>
+            </div>
+          </div>
+          
+          <div class="form-group col-md-6 col-lg-6 col-sm-6">
+            <label>Port</label>
+            <input type="text" formControlName="port" placeholder="Port" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.port.errors }"/>
+            <div *ngIf="submitted && f.port.errors" class="invalid-feedback">
+              <div *ngIf="f.port.errors.required">Port is required</div>
+            </div>
+          </div>
+          
+          <div class="form-group col-md-6 col-lg-6 col-sm-6">
+            <label>Encryption</label>
+            <select class="form-control form-control-md" formControlName="encryption"
+              [ngClass]="{ 'is-invalid': submitted && f.encryption.errors }">
+              <option [ngValue]="null">Select Encryption</option>
+              <option *ngFor="let item of encryptions" [value]="item.value">{{ item.type }}</option>
+            </select>
+            <div *ngIf="submitted && f.encryption.errors" class="invalid-feedback">
+              <div *ngIf="f.encryption.errors.required">Encryption is required</div>
+            </div>
+          </div>
+          
+          <div class="form-group col-md-6 col-lg-6 col-sm-6">
+            <label>Username</label>
+            <input type="text" formControlName="username" placeholder="Username" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/>
+            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+              <div *ngIf="f.username.errors.required">Username is required</div>
+            </div>
+          </div>
+          
+          <div class="form-group col-md-6 col-lg-6 col-sm-6">
+            <label>Password</label>
+            <input type="password" formControlName="password" placeholder="Password" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">Password is required</div>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 align-self-center mt-4">
+            <button type="submit" class="btn btn-primary w-100" (click)="startReceivingMails()">Start</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

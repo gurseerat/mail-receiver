@@ -1,0 +1,14 @@
+.connection-wrapper {
+  background: url('../../assets/photo-1490367605959-06955305859b.jfif') no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  
+  .connection-form {
+    height: fit-content;
+    width: 40%;
+    box-shadow: 0px 10px 20px 5px #daadad;
+    border-radius: 30px;
+    background: #fff;
+  }
+}
