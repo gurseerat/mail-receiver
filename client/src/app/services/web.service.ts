@@ -9,25 +9,52 @@ import { environment } from 'src/environments/environment';
 	providedIn: 'root'
 })
 export class WebService {
-  header = new HttpHeaders({
-		'Content-Type': 'application/json',
-		'Accept': 'application/json',
-		'Access-Control-Allow-Origin': '*'
-	});
+	header = {
+		headers: new HttpHeaders({
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Methods': 'OPTIONS, GET, POST',
+			'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Access-Control-Allow-Origin',
+		}),
+		withCredentials: true,
+	};
 
 	constructor(
 		private http: HttpClient,
-	) { 
-  }
+	) {
+	}
 
 	dataUrl = environment.apiUrl;
 
+	initialPost(formdata: any, url: string, id?: string) {
+		const header = {
+			headers: new HttpHeaders({
+				'Content-Type': 'application/json',
+				'Accept': 'application/json',
+				'Access-Control-Allow-Origin': '*',
+			}),
+			withCredentials: true,
+			observe: 'response' as 'response'
+		};
+		if (id) {
+			return this.http.post(this.dataUrl + url + '/' + id, formdata, header)
+				.pipe(
+					catchError(error => this.handleError(error))
+				);
+		} else {
+			return this.http.post(this.dataUrl + url, formdata)
+				.pipe(
+					catchError(error => this.handleError(error))
+				);
+		}
+	}
 
 	post(formdata: any, url: string, id?: string) {
 		if (id) {
-			return this.http.post(this.dataUrl + url + '/' + id, formdata, { headers: this.header })
+			return this.http.post(this.dataUrl + url + '/' + id, formdata, this.header)
 				.pipe(
-					catchError(error => this.handleError(error)) 
+					catchError(error => this.handleError(error))
 				);
 		} else {
 			return this.http.post(this.dataUrl + url, formdata)
@@ -38,14 +65,14 @@ export class WebService {
 	}
 
 	patch(formdata: any, id: string, url: string) {
-		return this.http.patch(this.dataUrl + url + '/' + id, formdata, { headers: this.header })
+		return this.http.patch(this.dataUrl + url + '/' + id, formdata, this.header)
 			.pipe(
-				catchError(error => this.handleError(error)) 
+				catchError(error => this.handleError(error))
 			);
 	}
 
 	get(url: string) {
-		return this.http.get(this.dataUrl + url, { headers: this.header })
+		return this.http.get(this.dataUrl + url, this.header)
 			.pipe(
 				retry(3),
 				catchError(error => this.handleError(error))

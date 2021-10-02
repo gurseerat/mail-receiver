@@ -10,7 +10,7 @@ import { EmailViewComponent } from './email-view/email-view.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Globals } from './app.globals';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToasterModule } from 'angular2-toaster';
 import { NgxUiLoaderModule } from "ngx-ui-loader";
 import { ConnectionFormComponent } from './connection-form/connection-form.component';
@@ -20,7 +20,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { LayoutModule } from '@angular/cdk/layout';
-
+import { CredentialInterceptor } from './services/credential.interceptor';
+ 
 const routes: Routes = [
   { path: '', component: ConnectionComponent },
   { path: 'inbox', component: EmailListComponent },
@@ -50,7 +51,10 @@ const routes: Routes = [
     MatDividerModule,
     LayoutModule
   ],
-  providers: [Globals],
+  providers: [
+    Globals,
+    { provide: HTTP_INTERCEPTORS, useClass: CredentialInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

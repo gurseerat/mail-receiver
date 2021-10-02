@@ -14,13 +14,13 @@ import { MailService } from '../services/mail.service';
 })
 export class ConnectionFormComponent implements OnInit {
   form: FormGroup;
-  serverTypes: { type: string, value: string }[] = this._globals.SERVERTYPES;
-  encryptions: { type: string, value: string }[] = this._globals.ENCRYPTIONS;
+  encryptions: any[] = [];
   submitted: boolean = false;
   mailData: any[] = [];
   @Input() isEdit$: boolean = false;
   @Output() newConnection = new EventEmitter<any>();
- 
+  servers: any[] = this._globals.SERVER_TYPES;
+
   constructor(
     private _fb: FormBuilder, 
     private _globals: Globals,
@@ -61,12 +61,12 @@ export class ConnectionFormComponent implements OnInit {
     let limit: number = 9;
   
     const params = { start, limit }
-    this.mailService.getAllEmails(this.form.value, params).subscribe(({data, success, message}: IResponse) => {
+    this.mailService.login(this.form.value, params).subscribe(({data, success, message}: IResponse) => {
       if(success) {
         this.mailData = data;
         this.mailService.setMail(this.mailData);
         this.form.value.draw = 1;
-        localStorage.setItem('_mailForm', JSON.stringify(this.form.value));
+        localStorage.setItem('_mailForm', JSON.stringify({ draw: this.form.value.draw }));
         this.newConnection.emit(true)
         this.ngxService.stop();
         this.router.navigate(['/inbox'])
@@ -80,5 +80,16 @@ export class ConnectionFormComponent implements OnInit {
     })
   }
 
+  onServerSelectedHandler(event: Event) {
+    const server = (event?.target as HTMLInputElement)?.value;
+    this.encryptions = this.servers.find(ele => ele.value === server)?.encryptions;
+    this.form.patchValue({ port: null });
+  }
+
+  onEncryptionSelectedHandler(event: Event) {
+    const encryption = (event?.target as HTMLInputElement)?.value;
+    const port: Number = this.encryptions.find(ele => ele.value === encryption)?.port;
+    this.form.patchValue({ port: port });
+  }
 
 }

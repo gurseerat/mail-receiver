@@ -2,12 +2,22 @@ import { MailService } from "../services/mail.service";
 import { BaseController } from "./base.controller";
 
 export class MailsController extends BaseController {
+
+  async loginUser() {
+    try {
+      await this.getAllMails();
+    } catch(error) {
+      this.handleError(500, { message: error.message, error: error })
+    }
+  }
+
   async getAllMails() {
     try {
       const { data } = this;
       data.fetchOptions = 'HEADER';
-      const mailService = await new MailService();
-      mailService.connectToInbox(data).then((res: any) => {
+      
+      const mailService = new MailService();
+      await mailService.connectToInbox(data).then((res: any) => {
         const emailStream = res;
         this.handleSuccess(200, { data: emailStream, message: 'Successfully fetched all emails'})
       }).catch((err) => {
@@ -19,13 +29,13 @@ export class MailsController extends BaseController {
     }
   }
 
-  getEmailById() {
+  async getEmailById() {
     try {
       const { data } = this;
       data.fetchOptions = '';
 
       const mailService = new MailService();
-      mailService.connectToInbox(data).then((res: any) => {
+      await mailService.connectToInbox(data).then((res: any) => {
         const emailStream = res;
         this.handleSuccess(200, { data: emailStream, message: 'Successfully fetched all emails'})
       }).catch((err) => {
