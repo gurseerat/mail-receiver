@@ -1,9 +1,9 @@
 import { IMailConnection } from "../interfaces";
-const Imap = require("imap");
-const POP3Client = require("poplib");
-const inspect = require('util').inspect;
+import Imap = require("imap");
+import POP3Client = require("poplib");
+import util = require('util');
 import { simpleParser } from "mailparser";
-
+const inspect = util.inspect;
 export class MailService {
 
   /**

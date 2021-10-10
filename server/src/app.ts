@@ -4,9 +4,8 @@ import helmet from 'helmet';
 import routes from './routes';
 import cors from 'cors';
 import cookieParser from "cookie-parser";
-const dotenv = require("dotenv");
+import dotenv = require("dotenv");
 dotenv.config();
-/// <reference types="node" />
 
 const PORT = process.env.PORT || 3000;
 const app: Express = express();
