@@ -29,7 +29,7 @@ let options: cors.CorsOptions = {
 	],
 	credentials: true,
 	methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
-	origin: ['http://localhost:8080', 'http://localhost:4200'],
+	origin: ['http://localhost:8080', 'http://localhost:4200', 'https://616271c1797c58b23bba0508--quirky-aryabhata-12b13a.netlify.app'],
 	preflightContinue: false
 };
 app.use(cors(options));
