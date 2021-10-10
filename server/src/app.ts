@@ -6,7 +6,7 @@ import cors from 'cors';
 import cookieParser from "cookie-parser";
 // require("dotenv").config();
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const app: Express = express();
 app.use(cookieParser());
 app.use(helmet());
